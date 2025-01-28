@@ -1,1 +1,1 @@
-web: gunicorn admin_panel.wsgi:application
+web: gunicorn admin_panel.wsgi:application --bind 0.0.0.0:$PORT --workers 4
