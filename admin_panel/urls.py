@@ -22,8 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),  # Подключение accounts/
-    path('api/', include('accounts.api_urls')),  # Подключение API
+    path('accounts/', include('admin_panel.accounts.urls')),
+    path('api/', include('admin_panel.accounts.api_urls')),    # Подключение API
     path('', lambda request: HttpResponseRedirect('/accounts/login/')),
 ]
 
