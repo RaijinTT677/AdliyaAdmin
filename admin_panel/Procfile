@@ -1,1 +1,1 @@
-web: gunicorn admin_panel.admin_panel.wsgi:application
+web: gunicorn admin_panel.wsgi:application
