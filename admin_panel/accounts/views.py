@@ -222,3 +222,48 @@ def compare_image_api(request):
     except Exception as e:
         print(f"❌ Ошибка: {e}")
         return Response({"error": f"Ошибка обработки изображения: {e}"}, status=400)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@api_view(['GET'])
+def get_images_api(request):
+    """
+    Эндпоинт для получения списка изображений активного контента.
+    """
+    print("🔍 get_images_api вызван!")  # Проверка вызова
+    try:
+        active_contents = Content.objects.filter(is_active=True)  # Фильтрация активного контента
+        serializer = ContentSerializer(active_contents, many=True)
+
+        image_data = []
+        for content in serializer.data:
+            if 'image' in content and content['image']:
+                image_data.append({
+                    "id": content["id"],
+                    "name": content["name"],
+                    "image_url": request.build_absolute_uri(content["image"]),
+                })
+
+        print(f"✅ Найдено {len(image_data)} изображений.")
+        return Response(image_data, status=200)
+    except Exception as e:
+        print(f"❌ Ошибка в get_images_api: {e}")
+        return Response({"error": str(e)}, status=400)
